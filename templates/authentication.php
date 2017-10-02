@@ -1,4 +1,12 @@
 <?php
+   include './classes/Mysql.php';
+   $mysql = new Mysql();
+   if($mysql->dbConnect()) {
+       $mysql->insertInto('admin', array('NAME'=>'user', 'EMAIL'=>'user@mail.com', 'PASSWORD'=>'54321'));
+       $mysql->dbDisconnect();
+       echo 'ok';
+   }
+
    if ($USER == 'admin') {
        $hidden_value = 'admin_auth';
    } else {

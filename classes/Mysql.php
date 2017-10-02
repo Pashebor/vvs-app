@@ -1,5 +1,5 @@
 <?php
-include './DbConfig.php';
+include 'DbConfig.php';
 
 class Mysql extends Dbconfig {
     public $connectionString;
@@ -25,8 +25,7 @@ class Mysql extends Dbconfig {
     }
 
     function dbConnect()    {
-        $this -> connectionString = mysql_connect($this -> serverName,$this -> userName,$this -> passCode);
-        mysql_select_db($this -> databaseName,$this -> connectionString);
+        $this -> connectionString = mysqli_connect($this -> serverName,$this -> userName,$this -> passCode, $this->databaseName);
         return $this -> connectionString;
     }
 
@@ -60,28 +59,44 @@ class Mysql extends Dbconfig {
         #return $this -> sqlQuery;
     }
 
-    function insertInto($tableName,$values) {
-        $i = NULL;
-
-        $this -> sqlQuery = 'INSERT INTO '.$tableName.' VALUES (';
+    private function set_columns($columns) {
         $i = 0;
-        while($values[$i]["val"] != NULL && $values[$i]["type"] != NULL)    {
-            if($values[$i]["type"] == "char")   {
-                $this -> sqlQuery .= "'";
-                $this -> sqlQuery .= $values[$i]["val"];
-                $this -> sqlQuery .= "'";
-            }
-            else if($values[$i]["type"] == 'int')   {
-                $this -> sqlQuery .= $values[$i]["val"];
-            }
+        $string = '';
+        foreach ($columns as $column) {
             $i++;
-            if($values[$i]["val"] != NULL)  {
-                $this -> sqlQuery .= ',';
+            if ($i == 1) {
+                $string .= $column;
+            } else {
+                $string .= ', '.$column;
             }
         }
+        return $string;
+    }
+
+    private function set_values($values) {
+        $i = 0;
+        $string = '';
+
+        foreach($values as $key => $value) {
+            $i++;
+            if ($i == 1) {
+                ($key == 'PASSWORD') ? $string .= "'".md5($value)."'": $string .= "'".$value."'";
+            } else {
+                ($key == 'PASSWORD') ? $string .= ', '."'".md5($value)."'" : $string .= ', '."'".$value."'";
+            }
+        }
+        return $string;
+    }
+function insertInto($tableName,$values) {
+        $columns = array_keys($values);
+        $this -> sqlQuery = 'INSERT INTO '.$tableName.' (';
+        $this -> sqlQuery .= $this -> set_columns($columns);
         $this -> sqlQuery .= ')';
-        #echo $this -> sqlQuery;
-        mysql_query($this -> sqlQuery,$this ->connectionString);
+        $this -> sqlQuery .= ' VALUES (';
+        $this -> sqlQuery .= $this -> set_values($values);
+        $this ->sqlQuery .= ')';
+
+        mysqli_query($this -> connectionString, $this -> sqlQuery);
         return $this -> sqlQuery;
         #$this -> sqlQuery = NULL;
     }
