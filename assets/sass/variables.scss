@@ -1,0 +1,31 @@
+@font-face {
+  font-family: OpenSansRegular;
+  src: url(assets/fonts/OpenSans-Regular.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@mixin shadow(){
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+}
+
+@mixin btn-submit-gradient() {
+  background: linear-gradient(#00adee, #0078a5);
+}
+
+@mixin btn-submit-hover() {
+  background: linear-gradient(#0078a5, #00adee);
+}
+
+@mixin btn-cancel-gradient() {
+  background: linear-gradient(#EB4D4D, #C73333);
+}
+
+@mixin btn-cancel-hover() {
+  background: linear-gradient(#C73333, #EB4D4D);
+}
+
+$main-font: OpenSansRegular;
+$main-color: #3498db;
+
+
