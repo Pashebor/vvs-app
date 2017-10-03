@@ -8,7 +8,7 @@ class Dbconfig {
     function Dbconfig() {
         $this -> serverName = 'localhost';
         $this -> userName = 'root';
-        $this -> passCode = 'pass';
-        $this -> dbName = 'dbase';
+        $this -> passCode = 'ltvmzyjd';
+        $this -> dbName = 'vvs-test';
     }
 }
