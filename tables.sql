@@ -13,3 +13,7 @@ CREATE TABLE suscribers(
   PASSWORD VARCHAR(120),
   PRIMARY KEY (ID)
 ) ENGINE = InnoDB;
+
+SELECT * FROM admin;
+INSERT INTO admin(NAME, EMAIL, PASSWORD) VALUES ('admin', 'example@mail.ru', md5('hello_666'));
+DROP TABLE admin;
