@@ -19,12 +19,19 @@ var Form = function () {
     _createClass(Form, [{
         key: 'formSubmit',
         value: function formSubmit() {
-            var _this = this;
-
-            this.form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                console.log(_this);
-            });
+            var fields = {};
+            var inputs = this.form.querySelectorAll('input');
+            for (var i = 0; i < inputs.length - 1; i += 1) {
+                switch (inputs[i].getAttribute('type')) {
+                    case 'hidden':
+                        fields.typeUser = inputs[i].value;
+                        break;
+                    default:
+                        fields[inputs[i].getAttribute('name')] = inputs[i].value;
+                }
+            }
+            this.fields = fields;
+            return this.fields;
         }
     }]);
 
@@ -46,6 +53,8 @@ var _Form2 = require('./Form');
 
 var _Form3 = _interopRequireDefault(_Form2);
 
+var _ajax = require('./utils/ajax.js');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60,16 +69,22 @@ var Login = function (_Form) {
     function Login(params) {
         _classCallCheck(this, Login);
 
-        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, params));
-
-        _this.name = params.name;
-        return _this;
+        return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, params));
     }
 
     _createClass(Login, [{
-        key: 'showName',
-        value: function showName() {
-            console.log(this.name);
+        key: 'loginUser',
+        value: function loginUser() {
+            var _this2 = this;
+
+            this.form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                (0, _ajax.checkUser)('./utils/login_ajax.php', _this2.formSubmit()).then(function (json) {
+                    console.log(json);
+                }).catch(function (err) {
+                    return console.log('error');
+                });
+            });
         }
     }]);
 
@@ -78,7 +93,7 @@ var Login = function (_Form) {
 
 exports.default = Login;
 
-},{"./Form":1}],3:[function(require,module,exports){
+},{"./Form":1,"./utils/ajax.js":4}],3:[function(require,module,exports){
 'use strict';
 
 var _Login = require('./Login');
@@ -92,7 +107,30 @@ var _Form2 = _interopRequireDefault(_Form);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var user = new _Login2.default({ name: 'js-auth' });
-user.showName();
-user.formSubmit();
+user.loginUser();
 
-},{"./Form":1,"./Login":2}]},{},[3]);
+},{"./Form":1,"./Login":2}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var ajaxJson = exports.ajaxJson = function ajaxJson(url) {
+    var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'get';
+    var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    return fetch(url, {
+        method: method,
+        credentials: 'same-origin',
+        headers: { "Content-type": "application/x-www-form-urlencoded" },
+        body: 'loginData=' + JSON.stringify(params)
+    }).then(function (response) {
+        return response.json();
+    });
+};
+
+var checkUser = exports.checkUser = function checkUser(url, data) {
+    return ajaxJson(url, 'POST', data);
+};
+
+},{}]},{},[3]);

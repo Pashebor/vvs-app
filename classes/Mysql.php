@@ -39,6 +39,19 @@ class Mysql extends Dbconfig {
         $this -> passCode = NULL;
     }
 
+    function checkAdmin($adminData) {
+        $this -> sqlQuery = 'SELECT * FROM admin';
+        $data = mysqli_query($this -> connectionString, $this -> sqlQuery);
+        foreach ($data as $key => $value) {
+            if ($value['NAME'] === $adminData['name'] && $value['PASSWORD'] === md5($adminData['password'])) {
+                return array('name' => $value['NAME'], 'email' => $value['EMAIL'], 'password'=>$value['PASSWORD']);
+                break;
+            } else {
+                return null;
+            }
+        }
+    }
+
     function selectAll($tableName)  {
         $this -> sqlQuery = 'SELECT * FROM '.$this -> databaseName.'.'.$tableName;
         $this -> dataSet = mysql_query($this -> sqlQuery,$this -> connectionString);
@@ -87,7 +100,8 @@ class Mysql extends Dbconfig {
         }
         return $string;
     }
-function insertInto($tableName,$values) {
+
+    function insertInto($tableName,$values) {
         $columns = array_keys($values);
         $this -> sqlQuery = 'INSERT INTO '.$tableName.' (';
         $this -> sqlQuery .= $this -> set_columns($columns);
