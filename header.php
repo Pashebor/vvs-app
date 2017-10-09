@@ -1,8 +1,12 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
     <title>VVS-info Таможенная статистика</title>
 </head>
 <body>

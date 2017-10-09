@@ -1,9 +1,60 @@
 @font-face {
-  font-family: OpenSansRegular;
-  src: url(assets/fonts/OpenSans-Regular.ttf);
+  font-family: FontAwesome;
+  src: url('assets/fonts/fontawesome-webfont.eot?v=3.0.1');
+  src: url('assets/fonts/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),
+  url('assets/fonts/FontAwesome.otf?v=3.0.1') format("opentype"),
+  url('assets/fonts/fontawesome-webfont.woff?v=3.0.1') format('woff'),
+  url('assets/fonts/fontawesome-webfont.woff2?v=3.0.1') format('woff2'),
+  url('assets/fonts/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: OpenSansLight;
+  src: url(assets/fonts/OpenSansLight.eot);
+  src: url(assets/fonts/OpenSansLight.eot?#iefix)format("embedded-opentype"),
+  url(assets/fonts/OpenSans-Light.ttf)format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: OpenSansRegular;
+  src: url(assets/fonts/OpenSansRegular.eot);
+  src: url(assets/fonts/OpenSansRegular.eot?#iefix)format("embedded-opentype"), url(assets/fonts/OpenSans-Regular.ttf)format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: OpenSansBold;
+  src: url(assets/fonts/OpenSansBold.eot);
+  src: url(assets/fonts/OpenSansBold.eot?#iefix)format("embedded-opentype"), url(assets/fonts/OpenSans-Bold.ttf)format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: RobotoSlabRegular;
+  src: url(assets/fonts/RobotoSlab-Regular.ttf);
+}
+
+@font-face {
+  font-family: RobotoSlabBold;
+  src: url(assets/fonts/RobotoSlab-Bold.ttf);
+}
+
+$main-font: OpenSansRegular;
+$main-color: #0f75a2;
+$primary-font: OpenSansLight;
+$headers-font-regular: OpenSansRegular;
+$headers-font-bold: OpenSansBold;
+$secondary-font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$seo-font: RobotoSlabRegular;
+$seo-font-bold: RobotoSlabBold;
+$footer-bg-color: #666666;
+$main-bg-color: #e2e2e2;
 
 @mixin shadow(){
   text-shadow: 0 1px 1px rgba(0,0,0,.3);
@@ -25,7 +76,5 @@
   background: linear-gradient(#C73333, #EB4D4D);
 }
 
-$main-font: OpenSansRegular;
-$main-color: #3498db;
 
 
