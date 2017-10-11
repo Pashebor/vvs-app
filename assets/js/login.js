@@ -9,6 +9,72 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var AlertPopup = function () {
+    function AlertPopup(title, message) {
+        _classCallCheck(this, AlertPopup);
+
+        this.title = title;
+        this.message = message;
+    }
+
+    _createClass(AlertPopup, [{
+        key: 'closePopup',
+        value: function closePopup() {
+            var _this = this;
+
+            var popup = document.querySelector('.js-popup');
+            popup.addEventListener('click', function () {
+                _this.style = 'opacity: 0';
+                window.location.reload();
+            });
+        }
+    }, {
+        key: 'popup',
+        value: function popup() {
+            var overlay = document.createElement('div'),
+                window = document.createElement('div'),
+                closeBtn = document.createElement('p'),
+                modalBody = document.createElement('div'),
+                btnOk = document.createElement('button');
+
+            btnOk.className += 'btn btn-submit';
+            btnOk.innerText = 'OK';
+            modalBody.innerHTML = '<h2 class="popup__title">' + this.title + '</h2><p class="popup__message">' + this.message + '</p>';
+            overlay.className += 'popup-overlay js-popup';
+            window.className += 'popup';
+            closeBtn.className += 'popup__close js-close-popup';
+            window.appendChild(closeBtn);
+            window.appendChild(modalBody);
+            window.appendChild(btnOk);
+            overlay.appendChild(window);
+
+            return overlay;
+        }
+    }, {
+        key: 'showPopup',
+        value: function showPopup() {
+            var body = document.querySelector('body');
+            body.appendChild(this.popup());
+            this.closePopup();
+        }
+    }]);
+
+    return AlertPopup;
+}();
+
+exports.default = AlertPopup;
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var Form = function () {
     function Form(formParams) {
         _classCallCheck(this, Form);
@@ -40,7 +106,7 @@ var Form = function () {
 
 exports.default = Form;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52,6 +118,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _Form2 = require('./Form');
 
 var _Form3 = _interopRequireDefault(_Form2);
+
+var _AlertPopup = require('./AlertPopup');
+
+var _AlertPopup2 = _interopRequireDefault(_AlertPopup);
 
 var _ajax = require('./utils/ajax.js');
 
@@ -80,7 +150,8 @@ var Login = function (_Form) {
             this.form.addEventListener('submit', function (event) {
                 event.preventDefault();
                 (0, _ajax.checkUser)('./utils/login_ajax.php', _this2.formSubmit()).then(function (json) {
-                    console.log(json);
+                    var popup = new _AlertPopup2.default('Сообщение', json.response);
+                    popup.showPopup();
                 }).catch(function (err) {
                     return console.log('error');
                 });
@@ -93,7 +164,7 @@ var Login = function (_Form) {
 
 exports.default = Login;
 
-},{"./Form":1,"./utils/ajax.js":4}],3:[function(require,module,exports){
+},{"./AlertPopup":1,"./Form":2,"./utils/ajax.js":5}],4:[function(require,module,exports){
 'use strict';
 
 var _Login = require('./Login');
@@ -104,12 +175,16 @@ var _Form = require('./Form');
 
 var _Form2 = _interopRequireDefault(_Form);
 
+var _AlertPopup = require('./AlertPopup');
+
+var _AlertPopup2 = _interopRequireDefault(_AlertPopup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var user = new _Login2.default({ name: 'js-auth' });
 user.loginUser();
 
-},{"./Form":1,"./Login":2}],4:[function(require,module,exports){
+},{"./AlertPopup":1,"./Form":2,"./Login":3}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -133,4 +208,4 @@ var checkUser = exports.checkUser = function checkUser(url, data) {
     return ajaxJson(url, 'POST', data);
 };
 
-},{}]},{},[3]);
+},{}]},{},[4]);

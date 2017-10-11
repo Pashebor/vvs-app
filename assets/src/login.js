@@ -1,4 +1,5 @@
 import Form from './Form';
+import AlertPopup from './AlertPopup';
 import {checkUser}  from './utils/ajax.js';
 
 class Login extends Form{
@@ -11,7 +12,8 @@ class Login extends Form{
             event.preventDefault();
             checkUser('./utils/login_ajax.php', this.formSubmit())
                 .then(json => {
-                    console.log(json);
+                    let popup = new AlertPopup('Сообщение', json.response);
+                    popup.showPopup();
                 })
                 .catch(err => console.log('error'));
         });

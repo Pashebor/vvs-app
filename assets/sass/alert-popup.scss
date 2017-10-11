@@ -1,0 +1,60 @@
+.popup{
+  position: relative;
+  width: 320px;
+  height: 150px;
+  top: calc(50% - 75px);
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  .btn{
+    &-submit{
+      float: none;
+      display: block;
+      margin: auto;
+    }
+  }
+  &-overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .6);
+    animation: fadeIn .3s 1 linear;
+    transition: opacity .3s ease-in-out;
+  }
+  &__close{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    cursor: pointer;
+    line-height: normal;
+    margin: 0;
+    &::before{
+      font-family: FontAwesome;
+      content: '\f00d';
+      font-size: 20px;
+      color: #C73333;
+    }
+    &:hover{
+      &::before{
+        color: #EB4D4D;
+      }
+    }
+  }
+  &__title{
+    font-size: 20px;
+    text-align: center;
+    line-height: normal;
+    color: white;
+    background-color: #0078a5;
+  }
+  &__message{
+    font-size: 18px;
+    text-align: center;
+  }
+}
+@keyframes fadeIn {
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
