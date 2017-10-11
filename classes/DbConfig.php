@@ -1,14 +1,11 @@
 <?php
 class Dbconfig {
-    protected $serverName;
-    protected $userName;
-    protected $passCode;
-    protected $dbName;
+    public function Dbconfig() {
+        $serverName = 'localhost';
+        $userName = 'root';
+        $passCode = 'ltvmzyjd';
+        $dbName = 'vvs-test';
 
-    function Dbconfig() {
-        $this -> serverName = 'localhost';
-        $this -> userName = 'root';
-        $this -> passCode = 'ltvmzyjd';
-        $this -> dbName = 'vvs-test';
+        return array('SERVER_NAME'=>$serverName, 'USER_NAME'=>$userName, 'PASS_CODE'=>$passCode, 'DB_NAME'=>$dbName);
     }
 }

@@ -1,31 +1,19 @@
 <?php
 include 'DbConfig.php';
 
-class Mysql extends Dbconfig {
-    public $connectionString;
-    public $dataSet;
+class Mysql {
+    private $connectionString;
+    private $dataSet;
     private $sqlQuery;
 
-    protected $databaseName;
-    protected $hostName;
-    protected $userName;
-    protected $passCode;
 
-    function Mysql()    {
-        $this -> connectionString = NULL;
-        $this -> sqlQuery = NULL;
-        $this -> dataSet = NULL;
-
-        $dbPara = new Dbconfig();
-        $this -> databaseName = $dbPara -> dbName;
-        $this -> hostName = $dbPara -> serverName;
-        $this -> userName = $dbPara -> userName;
-        $this -> passCode = $dbPara ->passCode;
-        $dbPara = NULL;
-    }
-
-    function dbConnect()    {
-        $this -> connectionString = mysqli_connect($this -> serverName,$this -> userName,$this -> passCode, $this->databaseName);
+    function dbConnect() {
+        $this -> dataSet = new Dbconfig();
+        $this -> connectionString = mysqli_connect(
+            $this->dataSet->Dbconfig()['SERVER_NAME'],
+            $this->dataSet->Dbconfig()['USER_NAME'],
+            $this->dataSet->Dbconfig()['PASS_CODE'],
+            $this->dataSet->Dbconfig()['DB_NAME']);
         return $this -> connectionString;
     }
 
@@ -33,10 +21,6 @@ class Mysql extends Dbconfig {
         $this -> connectionString = NULL;
         $this -> sqlQuery = NULL;
         $this -> dataSet = NULL;
-        $this -> databaseName = NULL;
-        $this -> hostName = NULL;
-        $this -> userName = NULL;
-        $this -> passCode = NULL;
     }
 
     function checkAdmin($adminData) {
