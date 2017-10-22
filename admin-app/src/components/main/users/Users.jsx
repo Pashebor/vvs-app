@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../header/Header.jsx';
-import UsersTable from './UesersTable.js';
-import UsersAdd from './UsersAdd.js';
+import UsersTable from './UesersTable.jsx';
+import UsersAdd from './UsersAdd.jsx';
 
 class Users extends React.Component{
     render() {

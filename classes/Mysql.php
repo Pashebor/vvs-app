@@ -24,22 +24,39 @@ class Mysql {
     }
 
     function checkAdmin($adminData) {
-        $this -> sqlQuery = 'SELECT * FROM admin';
+        $this -> sqlQuery = "SELECT * FROM admin WHERE NAME='".$adminData['name']."' AND PASSWORD = md5('".$adminData['password']."')";
         $data = mysqli_query($this -> connectionString, $this -> sqlQuery);
-        foreach ($data as $key => $value) {
-            if ($value['NAME'] === $adminData['name'] && $value['PASSWORD'] === md5($adminData['password'])) {
-                return array('name' => $value['NAME'], 'email' => $value['EMAIL'], 'password'=>$value['PASSWORD']);
-                break;
-            } else {
-                return null;
+        $num_row = mysqli_num_rows($data);
+        $data_resp = [];
+        if ($num_row == 1) {
+            foreach ($data as $key => $value) {
+                    $data_resp = array('name' => $value['NAME'], 'email' => $value['EMAIL'], 'password'=>$value['PASSWORD']);
             }
+            return $data_resp;
+        } else {
+            return null;
+        }
+    }
+
+    function checkUser($userData) {
+        $this -> sqlQuery = "SELECT * FROM users WHERE EMAIL='".$userData['name']."' AND PASSWORD_MD5 = md5('".$userData['password']."')";
+        $data = mysqli_query($this -> connectionString, $this -> sqlQuery);
+        $num_row = mysqli_num_rows($data);
+        $data_resp = [];
+        if ($num_row == 1) {
+            foreach ($data as $key => $value) {
+                $data_resp = array('name' => $value['NAME'], 'email' => $value['EMAIL'], 'password'=>$value['PASSWORD']);
+            }
+            return $data_resp;
+        } else {
+            return null;
         }
     }
 
     function selectAll($tableName)  {
-        $this -> sqlQuery = 'SELECT * FROM '.$this -> databaseName.'.'.$tableName;
-        $this -> dataSet = mysql_query($this -> sqlQuery,$this -> connectionString);
-        return $this -> dataSet;
+        $this -> sqlQuery = 'SELECT * FROM '.$tableName;
+        $data = mysqli_query($this -> connectionString, $this -> sqlQuery);
+        return $data;
     }
 
     function selectWhere($tableName,$rowName,$operator,$value,$valueType)   {
@@ -50,7 +67,7 @@ class Mysql {
         else if($valueType == 'char')   {
             $this -> sqlQuery .= "'".$value."'";
         }
-        $this -> dataSet = mysql_query($this -> sqlQuery,$this -> connectionString);
+        $this -> dataSet = mysqli_query($this -> connectionString, $this -> sqlQuery);
         $this -> sqlQuery = NULL;
         return $this -> dataSet;
         #return $this -> sqlQuery;
@@ -77,9 +94,9 @@ class Mysql {
         foreach($values as $key => $value) {
             $i++;
             if ($i == 1) {
-                ($key == 'PASSWORD') ? $string .= "'".md5($value)."'": $string .= "'".$value."'";
+                ($key == 'PASSWORD_MD5') ? $string .= "'".md5($value)."'": $string .= "'".$value."'";
             } else {
-                ($key == 'PASSWORD') ? $string .= ', '."'".md5($value)."'" : $string .= ', '."'".$value."'";
+                ($key == 'PASSWORD_MD5') ? $string .= ', '."'".md5($value)."'" : $string .= ', '."'".$value."'";
             }
         }
         return $string;

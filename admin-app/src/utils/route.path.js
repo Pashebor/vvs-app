@@ -1,8 +1,11 @@
 const publicPath = '/vvs-app/';
 
-const routeCodes = {
+export const routeCodes = {
     REPORTS: publicPath,
     USERS: `${publicPath}users`
 };
 
-export default routeCodes;
+export const url = () => {
+    let url = window.location.href;
+    return url.split('/');
+};

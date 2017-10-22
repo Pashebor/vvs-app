@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import routeCodes from '../../utils/route.path.js';
+import {routeCodes} from '../../utils/route.path.js';
 import Reports from './reports/Reports.jsx';
 import Users from './users/Users.jsx';
 

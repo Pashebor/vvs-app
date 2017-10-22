@@ -11,6 +11,9 @@ if (isset($_SESSION['USER'])) {
                    <script type="text/javascript" src="'.$_GLOBALS['SITE_ROOT_DIR'].'/admin-app/build/vvs_admin_app.js" async></script>
                     ');
             break;
+        case 'subscriber':
+            echo ('<h2>Приложение клиента!</h2>');
+            break;
         default:
             echo ('<h2>Вы вошли как клиент!</h2>');
             break;
