@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import routeCodes from '../../utils/route.path.js';
+import {routeCodes} from '../../utils/route.path.js';
 
 const NavigationBar = () =>{
         return(
