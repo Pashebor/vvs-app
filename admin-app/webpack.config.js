@@ -12,8 +12,6 @@ module.exports = {
     entry: {
         vvs_admin_app: path.resolve(root, 'vvs.admin.app.jsx'),
         admin_style: path.resolve(root, 'assets/sass/style.scss')
-        /*slick: path.resolve(root, 'assets/common/slick.min.css'),
-        slicktheme: path.resolve(root, 'assets/common/slick-theme.min.css')*/
     },
     output:{
         path: __dirname + '/build',

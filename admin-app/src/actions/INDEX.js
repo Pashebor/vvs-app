@@ -1,11 +1,18 @@
-import {GET_USERS, GET_REPORTS, FILTER_SEARCH, ADD_USER, MODAL_SHOW} from './constants';
-import {getJson, putJson} from '../utils/ajax';
+import {GET_USERS, GET_REPORTS, FILTER_SEARCH, ADD_USER, MODAL_SHOW, UPLOAD_REPORTS} from './constants';
+import {getJson, putJson, postJson, deleteJson} from '../utils/ajax';
 import {url, routeCodes} from '../utils/route.path';
 
 export const showModal = (state) => {
     return{
         type: MODAL_SHOW,
         isShown: state
+    }
+};
+
+export const uploadReportsSuccess = (respone) => {
+    return{
+        type: UPLOAD_REPORTS,
+        payload: respone
     }
 };
 
@@ -63,5 +70,18 @@ export const addUser = (userData) => {
                 dispatch(showModal(true));
             })
             .catch(err => console.log('error'));
+    }
+};
+
+export const uploadReports = reportsData => {
+    return dispatch => {
+        return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, reportsData)
+            .then(json => {
+                console.log(json);
+                /*let data = json;
+                data.ID = parseInt(data.ID);
+                dispatch(addUserSuccess(data));
+                dispatch(showModal(true));*/
+            }).catch(err => console.log(err))
     }
 }
