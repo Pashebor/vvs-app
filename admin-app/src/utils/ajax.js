@@ -1,9 +1,5 @@
 export const ajaxJson = (url, method = 'get', params) => {
-    return fetch(url, {
-        method: method,
-        credentials: 'same-origin',
-        headers: {"Content-type": "application/x-www-form-urlencoded"},
-        body: params})
+    return fetch(url, {method: method, body: params})
         .then(response => response.json());
 };
 
@@ -14,7 +10,7 @@ export const getJson = (url, params) => {
     return ajaxJson(url + '/' + params, 'get');
 };
 
-export const requestCallback = (url, params) => {
+export const postJson = (url, params) => {
     return ajaxJson(url, 'POST', params);
 };
 
