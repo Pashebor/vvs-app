@@ -1,5 +1,5 @@
 <?php
-include 'Mysql.php';
+
 class Users{
     
     private function randomPassword() {
