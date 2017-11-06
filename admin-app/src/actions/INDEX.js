@@ -1,6 +1,36 @@
-import {GET_USERS, GET_REPORTS, FILTER_SEARCH, ADD_USER, MODAL_SHOW, UPLOAD_REPORTS} from './constants';
+import {
+    GET_USERS,
+    GET_REPORTS,
+    FILTER_SEARCH,
+    ADD_USER,
+    MODAL_SHOW,
+    UPLOAD_REPORTS,
+    SHOW_PRELOADER,
+    GET_CURRENT_USER,
+    DELETE_USER} from './constants';
 import {getJson, putJson, postJson, deleteJson} from '../utils/ajax';
 import {url, routeCodes} from '../utils/route.path';
+
+export const deleteUserSuccess = (userData) => {
+    return{
+        type: DELETE_USER,
+        payload: userData
+    }
+};
+
+export const getCurrentUserSuccess = (userData) => {
+    return{
+        type: GET_CURRENT_USER,
+        payload: userData
+    }
+};
+
+export const showPreloader = (state) => {
+    return{
+        type: SHOW_PRELOADER,
+        isShown: state
+    }
+};
 
 export const showModal = (state) => {
     return{
@@ -30,10 +60,10 @@ export const getSuccessUsers = (callback) => {
     }
 };
 
-export const getReports = () => {
+export const getSuccessReports = callback => {
     return{
-        type: GET_USERS,
-        payload: 'yes'
+        type: GET_REPORTS,
+        payload: callback
     }
 };
 
@@ -46,8 +76,18 @@ export const filterAction = filter_value => {
 
 /*Async actions*/
 
+export const getCurrentUser = () => {
+    return dispatch => {
+        return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`)
+            .then(json => {
+                dispatch(getCurrentUserSuccess(json));
+            }).catch(err => console.log(err))
+    }
+};
+
 export const getUsers = () => {
     return dispatch => {
+        dispatch(showPreloader(true));
         return getJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`)
             .then(json => {
                 let data = json;
@@ -55,18 +95,21 @@ export const getUsers = () => {
                     item.ID = parseInt(item.ID);
                 });
                 dispatch(getSuccessUsers(data));
+                dispatch(showPreloader(false));
             })
-            .catch(err => console.log('error'));
+            .catch(err => console.log(err));
     }
 };
 
 export const addUser = (userData) => {
     return dispatch => {
+        dispatch(showPreloader(true));
         return putJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, userData)
             .then(json => {
                 let data = json;
                 data.ID = parseInt(data.ID);
                 dispatch(addUserSuccess(data));
+                dispatch(showPreloader(false));
                 dispatch(showModal(true));
             })
             .catch(err => console.log('error'));
@@ -75,13 +118,55 @@ export const addUser = (userData) => {
 
 export const uploadReports = reportsData => {
     return dispatch => {
-        return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, reportsData)
+        dispatch(showPreloader(true));
+        return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/reports_ajax.php`, reportsData)
             .then(json => {
-                console.log(json);
-                /*let data = json;
-                data.ID = parseInt(data.ID);
-                dispatch(addUserSuccess(data));
-                dispatch(showModal(true));*/
+                let data = json;
+                data.id = parseInt(data.id);
+                dispatch(uploadReportsSuccess(data));
+                dispatch(showPreloader(false));
+                dispatch(showModal(true));
             }).catch(err => console.log(err))
     }
+};
+
+export const getReports = () => {
+    return dispatch => {
+        dispatch(showPreloader(true));
+        return getJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/reports_ajax.php`)
+            .then(json => {
+                let data = json;
+                data.forEach(item => {
+                    item.id = parseInt(item.id);
+                });
+                dispatch(getSuccessReports(data));
+                dispatch(showPreloader(false));
+            }).catch(err => console.log(err));
+    }
+};
+
+export const deleteUser = (userData) => {
+    return dispatch => {
+        dispatch(showPreloader(true));
+        return deleteJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, userData)
+            .then(json => {
+                let data = json;
+                console.log(data);
+                data.forEach(item => {
+                    item.ID = parseInt(item.ID);
+                });
+                dispatch(deleteUserSuccess(data));
+                dispatch(showPreloader(false));
+            })
+            .catch(err => console.log('error'));
+    }
+};
+
+export const logoutUser = (data) => {
+        return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, data)
+            .then(json => {
+                if (json.callback === true) {
+                    location.reload();
+                }
+            }).catch(err => console.log(err))
 }

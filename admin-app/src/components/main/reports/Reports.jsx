@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../header/Header.jsx';
-import ReportsAdd from './ReportsAdd';
+import ReportsAdd from './ReportsAdd.jsx';
 import ReportsTable from './ReportsTable.jsx';
 
 

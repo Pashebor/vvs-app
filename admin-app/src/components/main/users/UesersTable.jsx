@@ -4,7 +4,7 @@ import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {filterSearch} from '../../../controllers/search-filter';
-import {getUsers} from '../../../actions/index';
+import {getUsers, deleteUser} from '../../../actions/index';
 
 class UsersTable extends React.Component{
     componentDidMount() {
@@ -16,6 +16,18 @@ class UsersTable extends React.Component{
           length: filterSearch(this.props.users, this.props.filterState, 'users').length
         };
     }
+
+    deleteRecordHandler(value) {
+        let formData = {
+            ID: value.original.ID,
+            NAME: value.original.NAME,
+            EMAIL: value.original.EMAIL,
+            PASSWORD_MD5: value.original['PASSWORD_MD5'],
+            PASSWORD: value.original.PASSWORD
+        };
+        this.props.deleteUser(JSON.stringify(formData));
+    }
+
     render() {
         const columns = [{
             Header: 'ID пользователя',
@@ -29,12 +41,22 @@ class UsersTable extends React.Component{
         }, {
             Header: 'Пароль',
             accessor: 'PASSWORD'
+        }, {
+            Header: 'Удалить',
+            accessor: 'id',
+            Cell: (value) => (
+                <button className="delete-btn" onClick={this.deleteRecordHandler.bind(this, value)}></button>
+            ),
+            width: 100
         }];
         return (
             <div className="users-table">
                 <h2 className="title">Пользователи</h2>
                 <Search/>
-                <ReactTable data={this.listUsers().users} columns={columns} showPagination={false} pageSize={this.listUsers().length}/>
+                <ReactTable data={this.listUsers().users}
+                            columns={columns}
+                            showPagination={false}
+                            pageSize={this.listUsers().length}/>
             </div>
         )
     }
@@ -43,12 +65,13 @@ class UsersTable extends React.Component{
 const mapStateToProps = (store) => {
     return {
         filterState: store.filterState,
-        users: store.tablesReducer.users
+        users: store.tablesReducer.users,
+        modalIsShown: store.tablesReducer.isShowModal
     }
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({getUsers}, dispatch);
+    return bindActionCreators({getUsers, deleteUser}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

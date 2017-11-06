@@ -1,5 +1,8 @@
 export const ajaxJson = (url, method = 'get', params) => {
-    return fetch(url, {method: method, body: params})
+    return fetch(url, {
+        method: method,
+        credentials: 'same-origin',
+        body: params})
         .then(response => response.json());
 };
 
@@ -19,6 +22,6 @@ export const putJson = (url, params) => {
 };
 
 
-export const deleteJson = (url) => {
-    return ajaxJson(url, 'delete');
+export const deleteJson = (url, params) => {
+    return ajaxJson(url, 'DELETE', params);
 };

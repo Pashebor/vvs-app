@@ -11,7 +11,6 @@ class Search extends React.Component{
     }
     
     render(){
-        console.log(this);
         return(
             <div className="search-block">
             <input type="text" className="search-field" onChange={this.searchHandler.bind(this)} placeholder="Поиск..."/>

@@ -2,3 +2,28 @@
 @import "reports/reports";
 @import "../search/search";
 @import "../modal-window/modal";
+@import "../preloader/preloader";
+
+.delete-btn{
+  position: relative;
+  display: block;
+  margin: auto;
+  border: none;
+  outline: none;
+  background: none;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: $delete-color;
+  &::before{
+    position: absolute;
+    font-family: FontAwesome;
+    content: '\f00d';
+    font-size: 18px;
+    top: 4px;
+    right: 6px;
+  }
+  &:hover{
+    color: $delete-hover-color;
+  }
+}
