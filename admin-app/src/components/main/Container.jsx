@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {routeCodes} from '../../utils/route.path.js';
 import Reports from './reports/Reports.jsx';
 import Users from './users/Users.jsx';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Preloader from '../preloader/Preloader';
 
 
 class Container extends React.Component {
@@ -15,9 +18,20 @@ class Container extends React.Component {
                     <Route path={routeCodes.USERS} component={Users}/>
                 </Switch>
             </BrowserRouter>
+                {this.props.isPreloader ? <Preloader/> : null}
             </main>
         )
     }
 }
 
-export default Container;
+const mapStateToProps = (store) => {
+    return {
+        isPreloader: store.tablesReducer.isPreloader
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

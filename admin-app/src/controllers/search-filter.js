@@ -7,7 +7,7 @@ export const filterSearch = (state, filterState, type)=> {
         } else if(type === 'reports') {
             return (element.id == filterState) ||
                 (element.name.toLowerCase().indexOf(filterState.toLowerCase()) !== -1) ||
-                (element.date.toLowerCase().indexOf(filterState.toLowerCase()) !== -1);
+                (element.dCreated.toLowerCase().indexOf(filterState.toLowerCase()) !== -1);
         }
     });
     return filteredState;

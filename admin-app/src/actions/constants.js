@@ -4,3 +4,6 @@ export const FILTER_SEARCH = 'FILTER_SEARCH';
 export const ADD_USER = 'ADD_USER';
 export const MODAL_SHOW = 'MODAL_SHOW';
 export const UPLOAD_REPORTS = 'UPLOAD_REPORTS';
+export const SHOW_PRELOADER = 'SHOW_PRELOADER';
+export const GET_CURRENT_USER = 'GET_CURRENT_USER';
+export const DELETE_USER = 'DELETE_USER';

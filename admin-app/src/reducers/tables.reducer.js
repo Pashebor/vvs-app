@@ -1,38 +1,12 @@
-import {GET_USERS, GET_REPORTS, ADD_USER, MODAL_SHOW} from '../actions/constants';
+import {GET_USERS, GET_REPORTS, ADD_USER, MODAL_SHOW, SHOW_PRELOADER,
+    UPLOAD_REPORTS,
+    DELETE_USER} from '../actions/constants';
 
 const initialState = {
     users: [],
-    reports:  [{
-        id: 1,
-        name: "Поставки отсюда",
-        date: '12.07.2017'
-    },{
-        id: 2,
-        name: "Поставки туда",
-        date: '13.07.2017'
-    },{
-        id: 3,
-        name: "Ежемесячный отчет",
-        date: '14.07.2017'
-    }, {
-        id: 4,
-        name: "Вычет торговых предложений",
-        date: '15.07.2017'
-    }, {
-        id: 5,
-        name: "Расчет поставок",
-        date: '16.07.2017'
-    }, {
-        id: 6,
-        name: "Перерасчет чего-то",
-        date: '20.07.2017'
-    }, {
-        id: 16,
-        name: "Перерасчет чего-то",
-        date: '20.07.2017'
-    }
-    ],
-    isShowModal: false
+    reports:  [],
+    isShowModal: false,
+    isPreloader: false
 };
 
 const tablesReducer = (state = initialState, action = {}) => {
@@ -48,8 +22,19 @@ const tablesReducer = (state = initialState, action = {}) => {
                 EMAIL: action.payload.EMAIL,
                 PASSWORD: action.payload.PASSWORD
             }]});
+        case DELETE_USER:
+            return Object.assign({}, state, {users: action.payload});
+        case UPLOAD_REPORTS:
+            return Object.assign({}, state, {reports: [...state.reports, {
+                id: action.payload.id,
+                name: action.payload.name,
+                assocName: action.payload.assocName,
+                dCreated: action.payload.dCreated
+            }]});
+        case SHOW_PRELOADER:
+            return Object.assign({}, state, {isPreloader: action.isShown});
         case MODAL_SHOW:
-            return Object.assign({}, state, {isShowModal: action.isShown})
+            return Object.assign({}, state, {isShowModal: action.isShown});
     }
     return state;
 };
