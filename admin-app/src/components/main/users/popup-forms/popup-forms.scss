@@ -1,0 +1,77 @@
+.popup-form{
+  position: relative;
+  width: 50%;
+  top: 20%;
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  .btn{
+    &-submit{
+      float: none;
+      display: block;
+      margin: auto;
+    }
+  }
+  &-overlay{
+    position: fixed;
+    z-index: 1;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .6);
+    animation: fadeIn .3s 1 linear;
+    transition: opacity .3s ease-in-out;
+  }
+  &__close{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    cursor: pointer;
+    line-height: normal;
+    margin: 0;
+    &::before{
+      font-family: FontAwesome;
+      content: '\f00d';
+      font-size: 20px;
+      color: #C73333;
+    }
+    &:hover{
+      &::before{
+        color: #EB4D4D;
+      }
+    }
+  }
+  &__title{
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    line-height: normal;
+    color: white;
+    background-color: #0078a5;
+  }
+  &__message{
+    font-size: 18px;
+    text-align: center;
+    margin: 10px auto;
+    padding-bottom: 10px;
+    width: 50%;
+    border-bottom: 1px solid black;
+  }
+  &__body{
+    display: flex;
+    flex-flow: row wrap;
+    width: 95%;
+    border: 1px solid black;
+    padding: 15px;
+    margin: 20px auto;
+    box-sizing: border-box;
+  }
+}
+@keyframes fadeIn {
+  from{opacity: 0;}
+  to{opacity: 1;}
+}

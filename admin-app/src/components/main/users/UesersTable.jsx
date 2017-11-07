@@ -4,7 +4,8 @@ import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {filterSearch} from '../../../controllers/search-filter';
-import {getUsers, deleteUser} from '../../../actions/index';
+import {getUsers, deleteUser, showPopupForms} from '../../../actions/index';
+import PopupForms from './popup-forms/PopupForms';
 
 class UsersTable extends React.Component{
     componentDidMount() {
@@ -27,6 +28,19 @@ class UsersTable extends React.Component{
         };
         this.props.deleteUser(JSON.stringify(formData));
     }
+    
+    addRecordHandler(value) {
+        const popupFormData = {
+          type: 'add',
+          state: true,
+          data: value.original
+        };
+        this.props.showPopupForms(popupFormData);
+    }
+
+    editRecordHandler(value) {
+        console.log(value.original.ID);
+    }
 
     render() {
         const columns = [{
@@ -42,17 +56,30 @@ class UsersTable extends React.Component{
             Header: 'Пароль',
             accessor: 'PASSWORD'
         }, {
+            Header: 'Отчет',
+            accessor: 'REPORT',
+            Cell: (value) => {
+                if (value.original.REPORT) {
+                    return (<button className="watch-btn" title="Редактировать отчет" onClick={this.editRecordHandler.bind(this, value)}></button>);
+                } else {
+                    return (<button className="add-btn" title="Добавить отчет" onClick={this.addRecordHandler.bind(this, value)}></button>);
+                }
+
+            },
+            width: 90
+        }, {
             Header: 'Удалить',
             accessor: 'id',
             Cell: (value) => (
                 <button className="delete-btn" onClick={this.deleteRecordHandler.bind(this, value)}></button>
             ),
-            width: 100
+            width: 90
         }];
         return (
             <div className="users-table">
                 <h2 className="title">Пользователи</h2>
                 <Search/>
+                {this.props.popupFormsIsShown ? <PopupForms/> : null}
                 <ReactTable data={this.listUsers().users}
                             columns={columns}
                             showPagination={false}
@@ -64,6 +91,7 @@ class UsersTable extends React.Component{
 
 const mapStateToProps = (store) => {
     return {
+        popupFormsIsShown: store.popupFormsReducer.popupFormState,
         filterState: store.filterState,
         users: store.tablesReducer.users,
         modalIsShown: store.tablesReducer.isShowModal
@@ -71,7 +99,7 @@ const mapStateToProps = (store) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({getUsers, deleteUser}, dispatch);
+    return bindActionCreators({getUsers, deleteUser, showPopupForms}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

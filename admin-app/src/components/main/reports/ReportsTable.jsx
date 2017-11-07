@@ -4,7 +4,7 @@ import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {filterSearch} from '../../../controllers/search-filter';
-import {getReports} from '../../../actions/index'
+import {getReports, deleteReport} from '../../../actions/index'
 
 
 class ReportsTable extends React.Component{
@@ -20,7 +20,14 @@ class ReportsTable extends React.Component{
     }
 
     deleteRecordHandler(value) {
-        console.log(value.original.id);
+        const reportData = {
+            id: value.original.id,
+            name: value.original.name,
+            assocName: value.original.assocName,
+            dCreated: value.original.dCreated,
+            user_owner: value.original.user_owner
+        };
+        this.props.deleteReport(JSON.stringify(reportData));
     }
     render() {
         const columns = [{
@@ -58,7 +65,7 @@ const mapStateToProps = (store) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({getReports}, dispatch);
+    return bindActionCreators({getReports, deleteReport}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReportsTable);

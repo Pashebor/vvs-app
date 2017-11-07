@@ -7,9 +7,34 @@ import {
     UPLOAD_REPORTS,
     SHOW_PRELOADER,
     GET_CURRENT_USER,
-    DELETE_USER} from './constants';
+    DELETE_USER,
+    DELETE_REPORT,
+    SHOW_POPUP_FORMS,
+    CLOSE_POPUP_FORMS} from './constants';
+
 import {getJson, putJson, postJson, deleteJson} from '../utils/ajax';
 import {url, routeCodes} from '../utils/route.path';
+
+export const showPopupForms = (formsData) => {
+    return{
+        type: SHOW_POPUP_FORMS,
+        payload: formsData
+    }
+};
+
+export const closePopupForms = (formsData) => {
+    return{
+        type: CLOSE_POPUP_FORMS,
+        payload: formsData
+    }
+};
+
+export const deleteReportSuccess = (reportData) => {
+    return{
+        type: DELETE_REPORT,
+        payload: reportData
+    }
+};
 
 export const deleteUserSuccess = (userData) => {
     return{
@@ -151,11 +176,26 @@ export const deleteUser = (userData) => {
         return deleteJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, userData)
             .then(json => {
                 let data = json;
-                console.log(data);
                 data.forEach(item => {
                     item.ID = parseInt(item.ID);
                 });
                 dispatch(deleteUserSuccess(data));
+                dispatch(showPreloader(false));
+            })
+            .catch(err => console.log('error'));
+    }
+};
+
+export const deleteReport = (reportData) => {
+    return dispatch => {
+        dispatch(showPreloader(true));
+        return deleteJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/reports_ajax.php`, reportData)
+            .then(json => {
+                let data = json;
+                data.forEach(item => {
+                    item.id = parseInt(item.id);
+                });
+                dispatch(deleteReportSuccess(data));
                 dispatch(showPreloader(false));
             })
             .catch(err => console.log('error'));

@@ -13,6 +13,9 @@ class UsersAdd extends React.Component{
             EMAIL: this.refs['email'].value
         };
         this.props.addUser(JSON.stringify(userData));
+        for (let field in this.refs) {
+            this.refs[field].value = '';
+        }
     }
     
     closeModalHandler() {
@@ -36,6 +39,7 @@ class UsersAdd extends React.Component{
 
 const mapStateToProps = (store) => {
     return {
+        popupFormsIsShown: store.popupFormsReducer.popupFormState,
         modalIsShown: store.tablesReducer.isShowModal
     }
 };
