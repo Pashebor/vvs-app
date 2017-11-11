@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { closePopupForms, getReports } from '../../../../actions/index';
+import { closePopupForms, getReports, addReportToUser } from '../../../../actions/index';
 
 class PopupForms extends Component{
+
     componentDidMount() {
         this.props.getReports();
     }
@@ -17,17 +18,30 @@ class PopupForms extends Component{
     }
 
     addReportHandler(event) {
-        console.log(event.target)
+        const userData = this.props.popupFormsState.popupFormsData;
+        const ownerData = new FormData();
+        ownerData.append('reportId', event.target.getAttribute('data-id'));
+        ownerData.append('reportAssocName', event.target.getAttribute('data-assoc'));
+        ownerData.append('reportName', event.target.getAttribute('data-name'));
+        ownerData.append('userId', userData.ID);
+        ownerData.append('userName', userData.NAME);
+        ownerData.append('popupForms', true);
+        this.props.addReportToUser(ownerData);
+
+        for (let button in this.refs) {
+            if(button !== `report-${event.target.getAttribute('data-count')}`) {
+                this.refs[button].style.display = 'none';
+            }
+        }
     }
 
     showReportsTags() {
         return this.props.reports.map( (report, i) => {
-            return (<button key={i} data-id={report.id} data-assoc={report.assocName} onClick={this.addReportHandler.bind(this)}>{report.name}</button>)
+            return (<button key={i} ref={`report-${i}`} data-count={i} data-id={report.id} data-assoc={report.assocName} data-name={report.name} onClick={this.addReportHandler.bind(this)}>{report.name}</button>)
         })
     }
 
     render() {
-        console.log(this.props.reports);
         return(
             <section className="popup-form-overlay" >
                 <div className="popup-form">
@@ -52,7 +66,7 @@ const mapStateToProps = (store) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({closePopupForms, getReports}, dispatch);
+    return bindActionCreators({closePopupForms, getReports, addReportToUser}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopupForms);

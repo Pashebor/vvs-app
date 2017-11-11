@@ -198,9 +198,18 @@ export const deleteReport = (reportData) => {
                 dispatch(deleteReportSuccess(data));
                 dispatch(showPreloader(false));
             })
-            .catch(err => console.log('error'));
+            .catch(err => console.log(err));
     }
 };
+
+export const addReportToUser = reportData => {
+    return dispatch => {
+        return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, reportData)
+            .then(json => {
+                console.log(json);
+            }).catch(error => console.log(error));
+    }
+}
 
 export const logoutUser = (data) => {
         return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, data)
