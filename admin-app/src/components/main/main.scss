@@ -44,9 +44,10 @@
 }
 
 .watch-btn{
+  width: 30px;
   color: $active-link-color;
   &::before{
-    content: '\f067';
+    content: '\f06e';
   }
 }
 

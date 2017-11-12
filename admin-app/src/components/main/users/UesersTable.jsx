@@ -39,7 +39,12 @@ class UsersTable extends React.Component{
     }
 
     editRecordHandler(value) {
-        console.log(value.original.ID);
+        const popupFormData = {
+            type: 'edit',
+            state: true,
+            data: value.original
+        };
+        this.props.showPopupForms(popupFormData);
     }
 
     render() {
@@ -57,9 +62,9 @@ class UsersTable extends React.Component{
             accessor: 'PASSWORD'
         }, {
             Header: 'Отчет',
-            accessor: 'REPORT',
+            accessor: 'REPORT_ID',
             Cell: (value) => {
-                if (value.original.REPORT) {
+                if (value.original.REPORT_ID) {
                     return (<button className="watch-btn" title="Редактировать отчет" onClick={this.editRecordHandler.bind(this, value)}></button>);
                 } else {
                     return (<button className="add-btn" title="Добавить отчет" onClick={this.addRecordHandler.bind(this, value)}></button>);

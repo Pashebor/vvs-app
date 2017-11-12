@@ -182,7 +182,7 @@ export const deleteUser = (userData) => {
                 dispatch(deleteUserSuccess(data));
                 dispatch(showPreloader(false));
             })
-            .catch(err => console.log('error'));
+            .catch(err => console.log(err));
     }
 };
 
@@ -204,10 +204,32 @@ export const deleteReport = (reportData) => {
 
 export const addReportToUser = reportData => {
     return dispatch => {
+        dispatch(showPreloader(true));
         return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, reportData)
             .then(json => {
-                console.log(json);
+                let data = json;
+                data.forEach(item => {
+                    item.ID = parseInt(item.ID);
+                });
+                dispatch(getSuccessUsers(data));
+                dispatch(showPreloader(false));
             }).catch(error => console.log(error));
+    }
+}
+
+export const deleteReportFromUser = userData =>{
+    return dispatch => {
+        dispatch(showPreloader(true));
+        return deleteJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, userData)
+            .then(json => {
+                let data = json;
+                data.forEach(item => {
+                    item.ID = parseInt(item.ID);
+                });
+                dispatch(deleteUserSuccess(data));
+                dispatch(showPreloader(false));
+            })
+            .catch(err => console.log(err));
     }
 }
 
