@@ -1,6 +1,8 @@
 import {GET_USERS, GET_REPORTS, ADD_USER, MODAL_SHOW, SHOW_PRELOADER,
     UPLOAD_REPORTS,
-    DELETE_USER} from '../actions/constants';
+    DELETE_USER,
+    DELETE_REPORT
+} from '../actions/constants';
 
 const initialState = {
     users: [],
@@ -24,6 +26,8 @@ const tablesReducer = (state = initialState, action = {}) => {
             }]});
         case DELETE_USER:
             return Object.assign({}, state, {users: action.payload});
+        case DELETE_REPORT:
+            return Object.assign({}, state, {reports: action.payload});
         case UPLOAD_REPORTS:
             return Object.assign({}, state, {reports: [...state.reports, {
                 id: action.payload.id,

@@ -16,6 +16,9 @@ class ReportsAdd extends React.Component{
         formData.append('file_four', this.refs['file4'].files[0]);
         formData.append('file_five', this.refs['file5'].files[0]);
         this.props.uploadReports(formData);
+        for (let field in this.refs) {
+            this.refs[field].value = '';
+        }
     }
     render() {
         return(

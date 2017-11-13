@@ -1,0 +1,140 @@
+.popup-form{
+  position: relative;
+  width: 50%;
+  top: 20%;
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  .btn{
+    &-submit{
+      float: none;
+      display: block;
+      margin: auto;
+    }
+  }
+  &-overlay{
+    position: fixed;
+    z-index: 1;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .6);
+    animation: fadeIn .3s 1 linear;
+    transition: opacity .3s ease-in-out;
+  }
+  &__close{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    cursor: pointer;
+    line-height: normal;
+    margin: 0;
+    &::before{
+      font-family: FontAwesome;
+      content: '\f00d';
+      font-size: 20px;
+      color: #C73333;
+    }
+    &:hover{
+      &::before{
+        color: #EB4D4D;
+      }
+    }
+  }
+  &__title{
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    line-height: normal;
+    color: white;
+    background-color: #0078a5;
+  }
+  &__message{
+    font-size: 18px;
+    text-align: center;
+    margin: 10px auto;
+    padding-bottom: 10px;
+    width: 50%;
+    border-bottom: 1px solid black;
+  }
+  &__body{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 95%;
+    border: 1px solid black;
+    padding: 15px;
+    margin: 20px auto;
+    max-height: 300px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    table{
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
+      th, td{
+        border: 1px solid black;
+      }
+    }
+  }
+  &__tag{
+    background: none;
+    border: 1px solid black;
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 17px;
+    position: relative;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    &--active{
+      &::after{
+        font-family: FontAwesome;
+        font-size: 20px;
+        content: '\f00c';
+        color: $check-report-color;
+        padding-left: 5px;
+      }
+    }
+    &:hover{
+      background-color: rgba(224,224,224, .6);
+    }
+  }
+  &__buttons{
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    width: 95%;
+    padding-bottom: 20px;
+    margin: auto;
+    .btn-submit{
+      margin: 0;
+    }
+  }
+  &__notification{
+    width: fit-content;
+    margin: auto;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px;
+    h3{
+      margin: 0;
+      text-align: center;
+    }
+    &--error{
+      background-color: $notification-error;
+    }
+    &--success{
+      background-color: $check-report-color;
+    }
+  }
+}
+@keyframes fadeIn {
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
