@@ -1,0 +1,49 @@
+@import "../modal-window/modal";
+@import "../preloader/preloader";
+
+@each $btn in (delete, add, watch) {
+  .#{$btn}-btn{
+    position: relative;
+    display: block;
+    margin: auto;
+    border: none;
+    outline: none;
+    background: none;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    &::before{
+      position: absolute;
+      font-family: FontAwesome;
+      font-size: 18px;
+      top: 4px;
+      right: 6px;
+    }
+    &:hover{
+      color: $delete-hover-color;
+    }
+  }
+}
+
+.delete-btn{
+  color: $delete-color;
+  &::before{
+    content: '\f00d';
+  }
+}
+
+.add-btn{
+  color: $active-link-color;
+  &::before{
+    content: '\f067';
+  }
+}
+
+.watch-btn{
+  width: 30px;
+  color: $active-link-color;
+  &::before{
+    content: '\f06e';
+  }
+}
+

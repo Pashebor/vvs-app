@@ -1,5 +1,4 @@
 <?php
-
    if ($USER == 'admin') {
        $hidden_value = 'admin_auth';
        $title = 'Авторизация администратора';

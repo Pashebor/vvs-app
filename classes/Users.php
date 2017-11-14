@@ -35,4 +35,28 @@ class Users{
         }
         return mysqli_fetch_all($user, MYSQLI_ASSOC);
     }
+    
+    function deleteUser($values) {
+        $sql = new Mysql();
+        if ($sql->dbConnect()) {
+            $sql->delete('users', $values['ID']);
+            $users = $sql->selectAll('users');
+            $sql->dbDisconnect();
+            return mysqli_fetch_all($users, MYSQLI_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
+    function addReportToUser($data, $type) {
+        $sql = new Mysql();
+        if ($sql->dbConnect()) {
+            $sql->updateUsers($data, $type);
+            $users = $sql->selectAll('users');
+            $sql->dbDisconnect();
+            return mysqli_fetch_all($users, MYSQLI_ASSOC);
+        } else {
+            return false;
+        }
+    }
 }
