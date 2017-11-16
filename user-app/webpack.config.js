@@ -10,8 +10,8 @@ module.exports = {
     context: path.join(__dirname, 'src'),
 
     entry: {
-        vvs_admin_app: path.resolve(root, 'vvs.user.app.jsx'),
-        admin_style: path.resolve(root, 'assets/sass/style.scss')
+        vvs_user_app: path.resolve(root, 'vvs.user.app.jsx'),
+        user_style: path.resolve(root, 'assets/sass/style.scss')
     },
     output:{
         path: __dirname + '/build',
@@ -39,14 +39,14 @@ module.exports = {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!postcss-loader!sass-loader' })
             },
-            {
+            /*{
                 test: /\.(svg)|(png)|(jpg)$/,
                 loader: 'file-loader?name=images/[name].[ext]'
             },
             {
                 test: /\.(eot|ttf|woff|woff2|otf)$/,
                 loader: 'file-loader?name=fonts/[name].[ext]'
-            },
+            },*/
             {
                 test: /\.(css)$/,
                 loader: 'file-loader?name=common/[name].[ext]'
@@ -55,10 +55,6 @@ module.exports = {
     },
     //devtool: "eval-source-map",
     plugins: [
-        new ExtractTextPlugin({ filename: './[name].css', disable: false, allChunks: true }),
-        new CopyWebpackPlugin([
-            { from: './assets/images', to: './images/' },
-            { from: './assets/vendor', to: './vendor'}
-        ])
+        new ExtractTextPlugin({ filename: './[name].css', disable: false, allChunks: true })
     ]
 };

@@ -1,12 +1,4 @@
-export const GET_USERS = 'GET_USERS';
-export const GET_REPORTS = 'GET_REPORTS';
 export const FILTER_SEARCH = 'FILTER_SEARCH';
-export const ADD_USER = 'ADD_USER';
 export const MODAL_SHOW = 'MODAL_SHOW';
-export const UPLOAD_REPORTS = 'UPLOAD_REPORTS';
 export const SHOW_PRELOADER = 'SHOW_PRELOADER';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
-export const DELETE_USER = 'DELETE_USER';
-export const DELETE_REPORT = 'DELETE_REPORT';
-export const SHOW_POPUP_FORMS = 'SHOW_POPUP_FORMS';
-export const CLOSE_POPUP_FORMS = 'CLOSE_POPUP_FORMS';

@@ -1,5 +1,40 @@
 @import "../modal-window/modal";
 @import "../preloader/preloader";
+@import "user-reports/user-reports";
+@import "./sidebar/left-menu";
+
+.main{
+  &-page{
+    padding: 0 20px;
+    .title{
+      font-size: 25px;
+      color: #000;
+    }
+    &__link{
+      display: block;
+      width: 60%;
+      margin: 0 auto 40px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 16px;
+      text-align: center;
+      background-color: white;
+      padding: 10px;
+      border: 2px solid $active-link-color;
+      font-weight: bold;
+      color: #000;
+      transition: background-color .3s ease-in-out;
+      &:hover{
+        background-color: $link-hover-bg;
+      }
+    }
+  }
+  &-container{
+    overflow: hidden;
+    width: 60%;
+    margin: auto;
+  }
+}
 
 @each $btn in (delete, add, watch) {
   .#{$btn}-btn{

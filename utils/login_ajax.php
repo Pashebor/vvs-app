@@ -35,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          } else {
             session_start();
             $_SESSION['USER'] = 'subscriber';
+            $_SESSION['NAME'] = $response['name'];
+            $_SESSION['EMAIL'] = $response['email'];
             echo json_encode(['response'=> "Вы авторизовались как Пользователь!"]);
          }
            break;

@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
-import tablesReducer from './tables.reducer.js';
+import mainReducer from './main.reducer';
 import filterReducer from './filter.reducer';
 import headerReducer from './header.reducer';
-import popupFormsReducer from './popup.forms.reducer';
 
-const reducers = combineReducers({});
+const reducers = combineReducers({
+    headerStore: headerReducer,
+    filterStore: filterReducer,
+    mainStore: mainReducer
+});
 
 export default reducers;

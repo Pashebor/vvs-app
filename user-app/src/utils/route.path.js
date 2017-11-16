@@ -1,8 +1,9 @@
 const publicPath = '/vvs-app/';
 
 export const routeCodes = {
-    REPORTS: publicPath,
-    USERS: `${publicPath}users`
+    MAIN: publicPath,
+    REPORTS: `${publicPath}my-reports`,
+    LIST1: `${publicPath}list-one`
 };
 
 export const url = () => {

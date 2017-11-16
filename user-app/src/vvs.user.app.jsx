@@ -4,7 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import middleWare from 'redux-thunk';
 import reducers from './reducers';
-import VVSUserApp from './components/VVSUserApp';
+import VVSUserApp from './components/VVSUserApp.jsx';
 
 const store = createStore(reducers, {}, applyMiddleware(middleWare));
 

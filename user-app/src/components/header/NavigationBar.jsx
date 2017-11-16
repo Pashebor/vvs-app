@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {getCurrentUser, logoutUser} from '../../actions/index';
-import {routeCodes} from '../../utils/route.path.js';
+import {routeCodes} from '../../utils/route.path';
 
 class NavigationBar extends React.Component{
     componentDidMount() {
@@ -38,10 +38,8 @@ class NavigationBar extends React.Component{
         };
         return (
             <nav className="navigation-bar">
-                <Link to={routeCodes.REPORTS}
-                      className={window.location.pathname === '/vvs-app/' ? 'navigation-bar__item navigation-bar__item--active' : 'navigation-bar__item'}>Отчеты</Link>
-                <Link to={routeCodes.USERS}
-                      className={window.location.pathname === '/vvs-app/users' ? 'navigation-bar__item navigation-bar__item--active' : 'navigation-bar__item'}>Пользователи</Link>
+                <Link to={routeCodes.MAIN}
+                      className={window.location.pathname === '/vvs-app/' ? 'navigation-bar__item navigation-bar__item--active' : 'navigation-bar__item'}>Мои отчеты</Link>
                 <div className="user">
                     <div className={userClass()}></div>
                     <p className="user__name">{userName()}</p>
@@ -54,7 +52,7 @@ class NavigationBar extends React.Component{
 
 const mapStateToProps = (store) => {
     return {
-        userData: store.headerReducer.userData
+        userData: store.headerStore.userData
     }
 };
 
