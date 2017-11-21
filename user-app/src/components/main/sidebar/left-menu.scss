@@ -1,5 +1,58 @@
 .left-menu{
-  width: 30%;
-  height: 86vh;
-  border-top: 1px solid black;
+  width: 16%;
+  height: 80vh;
+  border-right: 1px solid black;
+  padding-left: 25px;
+  box-sizing: border-box;
+  &__link{
+    margin-top: 5px;
+    @each $link-type in (schema, tables) {
+      &--#{$link-type} {
+        &::before{
+          position: relative;
+          top: 2px;
+          font-family: FontAwesome;
+          color: $active-link-color;
+          font-size: 20px;
+          padding-right: 5px;
+        }
+      }
+    }
+    &--schema{
+      &::before{
+        content: '\f0e8';
+      }
+    }
+    &--tables{
+      &::before{
+        content: '\f022';
+      }
+    }
+    a{
+      text-decoration: none;
+      font-weight: 600;
+      color: #000;
+      &:hover{
+        color: $active-link-color;
+      }
+    }
+    &--active{
+      a{
+        color: $active-link-color;
+      }
+      &::before{
+        color: $check-report-color;
+      }
+    }
+  }
+  .title{
+    font-size: 18px;
+    border-bottom: none;
+    padding-left: 0;
+    &:first-child{
+      margin-top: 0;
+      padding-top: 20px;
+    }
+    margin-top: 30px;
+  }
 }

@@ -1,8 +1,9 @@
-import {SHOW_PRELOADER, MODAL_SHOW} from '../actions/constants';
+import {SHOW_PRELOADER, MODAL_SHOW, GET_USER_REPORTS} from '../actions/constants';
 
 const initialState = {
     isShowModal: false,
-    isPreloader: false
+    isPreloader: false,
+    userReport: null
 };
 
 const mainReducer = (state = initialState, action = {}) => {
@@ -11,6 +12,8 @@ const mainReducer = (state = initialState, action = {}) => {
             return Object.assign({}, state, {isPreloader: action.isShown});
         case MODAL_SHOW:
             return Object.assign({}, state, {isShowModal: action.isShown});
+        case GET_USER_REPORTS:
+            return Object.assign({}, state, {userReport: action.payload});
     }
     return state;
 };

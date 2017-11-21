@@ -50,7 +50,8 @@ class Mysql {
         $data_resp = [];
         if ($num_row == 1) {
             foreach ($data as $key => $value) {
-                $data_resp = array('name' => $value['NAME'], 'email' => $value['EMAIL'], 'password'=>$value['PASSWORD']);
+                $data_resp = array('name' => $value['NAME'], 'email' => $value['EMAIL'], 'password'=>$value['PASSWORD'],
+                    'report_id'=>$value['REPORT_ID'], 'report_name'=>$value['REPORT_NAME']);
             }
             return $data_resp;
         } else {

@@ -24,7 +24,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if (!$logout) {
             if(!$is_popup_forms) {
                 if (isset($_SESSION['USER'])) {
-                    $current_user = ['type' => $_SESSION['USER'], 'name' => $_SESSION['NAME'], 'email' => $_SESSION['EMAIL']];
+                    $current_user = [
+                        'type' => $_SESSION['USER'],
+                        'name' => $_SESSION['NAME'],
+                        'email' => $_SESSION['EMAIL'],
+                        'reportId'=>$_SESSION['REPORT_ID'],
+                        'reportName'=>$_SESSION['REPORT_NAME']
+                    ];
                     echo json_encode($current_user);
                 }
             } else {

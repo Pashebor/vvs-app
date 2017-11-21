@@ -8,7 +8,7 @@ $_GLOBALS['SITE_ROOT_DIR'] = $app_root_path;
 <html lang="ru">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="<?echo $app_root_path?>/style.css"/>
     <?php if (isset($_SESSION['USER'])) {
         switch ($_SESSION['USER']) {
             case 'administrator':
@@ -24,10 +24,11 @@ $_GLOBALS['SITE_ROOT_DIR'] = $app_root_path;
         }
     }
     ?>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?echo $app_root_path?>/assets/images/favicon.ico" type="image/x-icon" />
     <title>VVS-info Таможенная статистика</title>
+    <base href="<?echo $app_root_path?>">
 </head>
 <body>
 <header class="header">
-    <div class="logo"><img src="assets/images/logo.png"/></div>
+    <div class="logo"><img src="<?echo $app_root_path?>/assets/images/logo.png"/></div>
 </header>

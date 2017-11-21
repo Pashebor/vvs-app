@@ -2,6 +2,8 @@
 @import "../preloader/preloader";
 @import "user-reports/user-reports";
 @import "./sidebar/left-menu";
+@import "lists/lists";
+@import "ved-shema/ved-styles";
 
 .main{
   &-page{
@@ -81,4 +83,6 @@
     content: '\f06e';
   }
 }
+
+
 

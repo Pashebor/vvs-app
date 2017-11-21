@@ -105,7 +105,7 @@ CREATE TABLE reports (
 
 SELECT * FROM reports;
 SELECT * FROM users;
-SELECT * FROM test_c_preferences;
+SELECT * FROM otchet_nomer_1_r_customers;
 SELECT * FROM otchet_za_11_11_2017_c_preferences;
 SELECT * FROM admin WHERE NAME='admin' AND PASSWORD=md5('hello');
 INSERT INTO admin(NAME, EMAIL, PASSWORD) VALUES ('admin2', 'test@mail.ru', md5('hell2'));
@@ -114,7 +114,7 @@ INSERT INTO users(NAME, EMAIL, PASSWORD_MD5, PASSWORD) VALUES ('Агафонов
 INSERT INTO users(NAME, EMAIL, PASSWORD_MD5, PASSWORD) VALUES ('Демьянов Павел Егорович', 'pashebor@gmail.com', md5('ltvmzyjd'), 'ltvmzyjd');
 DROP TABLE noviy_otchet_r_exporters;
 DROP TABLE reports;
-DROP TABLE dobavlen_noviy_list_r_provider;
+DROP TABLE posledniy_otchet_r_provider;
 DELETE FROM users WHERE id = 12;
 ALTER TABLE reports DROP COLUMN owner_name;
 UPDATE users SET REPORT_ID=NULL, REPORT_ASSOC_NAME=NULL, REPORT_NAME=NULL WHERE ID= 3;

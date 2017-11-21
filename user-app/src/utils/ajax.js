@@ -1,4 +1,4 @@
-export const ajaxJson = (url, method = 'get', params) => {
+export const ajaxJson = (url, method = 'GET', params) => {
     return fetch(url, {
         method: method,
         credentials: 'same-origin',
@@ -10,7 +10,7 @@ export const getJson = (url, params) => {
     if (params === undefined) {
         return ajaxJson(url);
     }
-    return ajaxJson(url + '/' + params, 'get');
+    return ajaxJson(url + '/' + params, 'GET');
 };
 
 export const postJson = (url, params) => {

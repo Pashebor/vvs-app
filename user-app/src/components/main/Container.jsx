@@ -26,7 +26,8 @@ class Container extends React.Component {
 
 const mapStateToProps = (store) => {
     return {
-        isPreloader: store.mainStore.isPreloader
+        isPreloader: store.mainStore.isPreloader,
+        reportName: store.mainStore.userReport
     }
 };
 
