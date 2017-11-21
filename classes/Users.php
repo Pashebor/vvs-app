@@ -35,4 +35,50 @@ class Users{
         }
         return mysqli_fetch_all($user, MYSQLI_ASSOC);
     }
+    
+    function deleteUser($values) {
+        $sql = new Mysql();
+        if ($sql->dbConnect()) {
+            $sql->delete('users', $values['ID']);
+            $users = $sql->selectAll('users');
+            $sql->dbDisconnect();
+            return mysqli_fetch_all($users, MYSQLI_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
+    function addReportToUser($data, $type) {
+        $sql = new Mysql();
+        if ($sql->dbConnect()) {
+            $sql->updateUsers($data, $type);
+            $users = $sql->selectAll('users');
+            $sql->dbDisconnect();
+            return mysqli_fetch_all($users, MYSQLI_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
+    function getUserReports($report_id) {
+        $sql = new Mysql();
+        if($sql->dbConnect()) {
+            $table_row = $sql->selectWhere('reports', 'id', '=', $report_id, 'char');
+            $table_name= $table_row->fetch_object()->assocName;
+            $customers = $sql->selectAll($table_name.'_r_customers');
+            $manufacturers = $sql->selectAll($table_name.'_r_manufact');
+            $provider = $sql->selectAll($table_name.'_r_provider');
+            $exporters = $sql->selectAll($table_name.'_r_exporters');
+            $preferences = $sql->selectAll($table_name.'_c_preferences');
+            $sql->dbDisconnect();
+            $response = array('one'=>mysqli_fetch_all($customers, MYSQLI_ASSOC),
+                'two'=>mysqli_fetch_all($manufacturers, MYSQLI_ASSOC),
+                'three'=>mysqli_fetch_all($provider, MYSQLI_ASSOC),
+                'four'=>mysqli_fetch_all($exporters, MYSQLI_ASSOC),
+                'five'=>mysqli_fetch_all($preferences, MYSQLI_ASSOC));
+            return $response;
+        } else {
+            return ['callback'=>'error'];
+        }
+    }
 }

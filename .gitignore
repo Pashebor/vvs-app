@@ -1,5 +1,7 @@
 /node_modules/
 /.idea/
 /admin-app/node_modules/
+/user-app/node_modules/
 /admin-app/build/
+/user-app/build/
 /admin-app/.idea/

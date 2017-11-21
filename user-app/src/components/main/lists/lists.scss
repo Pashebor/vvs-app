@@ -1,0 +1,69 @@
+.lists{
+  display: flex;
+  flex-flow: row;
+  .list{
+    width: 84%;
+    height: 80vh;
+    .title{
+      border-bottom: none;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .ReactTable{
+      width: 95%;
+      margin: auto;
+      border-left: 2px solid $active-link-color;
+      border-top: 2px solid $active-link-color;
+      .rt-thead.-header{
+        box-shadow: none;
+        border-bottom: 2px solid $active-link-color;
+      }
+      .rt-tr.-odd{
+        cursor: pointer;
+        background-color: #EEEEEE;
+        &:hover{
+          background-color: white;
+        }
+      }
+
+      .rt-tr.-even{
+        cursor: pointer;
+        &:hover{
+          background-color: white;
+        }
+      }
+
+      .rt-tbody {
+        .rt-tr-group{
+          border-bottom: 2px solid $active-link-color;
+        }
+        .rt-td {
+          border-right: 2px solid $active-link-color;
+        }
+      }
+      .rt-thead{
+        background-color: white;
+        .rt-th.-sort-asc, .rt-td.-sort-asc{
+          box-shadow: inset 0 3px 0 0 $active-link-color;
+        }
+
+        .rt-th.-sort-desc, .rt-td.-sort-desc{
+          box-shadow: inset 0 -3px 0 0 $active-link-color;
+        }
+
+        .rt-th, .rt-td{
+          border-right: 2px solid $active-link-color;
+        }
+        .rt-resizable-header-content{
+          font-size: 20px;
+          font-weight: 600;
+          text-align: left;
+        }
+      }
+      .pagination-bottom{
+        border-bottom: 2px solid $active-link-color;
+        border-right: 2px solid $active-link-color;
+      }
+    }
+  }
+}
