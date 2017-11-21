@@ -237,7 +237,7 @@ export const logoutUser = (data) => {
         return postJson(`${url()[0]}//${url()[2]}${routeCodes.REPORTS}utils/users_ajax.php`, data)
             .then(json => {
                 if (json.callback === true) {
-                    location.reload();
+                    location.href = `${routeCodes.REPORTS}`;
                 }
             }).catch(err => console.log(err))
 }
